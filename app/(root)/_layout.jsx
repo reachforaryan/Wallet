@@ -3,9 +3,17 @@ import { Redirect } from "expo-router";
 import { Stack } from "expo-router/stack";
 
 export default function Layout() {
-  const { isSignIn } = useUser();
+  const { isSignedIn } = useUser();
 
-  if (!isSignIn) return <Redirect href={"/sign-in"} />;
+  if (!isSignedIn) {
+    return <Redirect href={"/sign-in"} />;
+  }
 
   return <Stack screenOptions={{ headerShown: false }} />;
 }
+
+// import { Stack } from 'expo-router/stack'
+
+// export default function Layout() {
+//   return <Stack />
+// }
