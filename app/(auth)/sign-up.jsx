@@ -36,9 +36,11 @@ export default function SignUpScreen() {
       // and capture OTP code
       setPendingVerification(true);
     } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2));
+      if (err.errors?.[0]?.code === "form_identifier_exists") {
+        setError("The email is already in use. Please try another.");
+      } else {
+        setError("An error occurred. Please try again.");
+      }
     }
   };
 
@@ -137,7 +139,7 @@ export default function SignUpScreen() {
           placeholderTextColor="#9A8478"
           placeholder="Enter password"
           secureTextEntry={true}
-          onChangeText={(password) => setEmailAddress(password)}
+          onChangeText={(password) => setPassword(password)}
         />
 
         <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
